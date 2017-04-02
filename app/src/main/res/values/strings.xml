@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">RetroHub</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="search_hint">Put your words there</string>
+    <string name="title_activity_login">Login</string>
+    <string name="string_getting_gson_title">Please wait</string>
+    <string name="string_getting_gson_massage">Connecting to git</string>
+</resources>
