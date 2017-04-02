@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity
 
         name.setText(sharedPreferences.getString("login","your login"));
 
-
         Picasso.with(getApplicationContext())
                 .load(sharedPreferences.getString("imageUrl","xxx"))
                 .error(R.mipmap.ic_launcher).into(img);
