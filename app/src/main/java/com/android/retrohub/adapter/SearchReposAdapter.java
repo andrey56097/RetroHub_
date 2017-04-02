@@ -10,10 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.retrohub.R;
-import com.android.retrohub.models.Item;
 import com.android.retrohub.models.SearchRepos;
-import com.android.retrohub.models.UserRepos;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,19 +18,19 @@ import java.util.List;
  * Created by batsa on 29.03.2017.
  */
 
-public class SearchReposAdapter extends ArrayAdapter<Item> {
-    List<Item> reposes;
+public class SearchReposAdapter extends ArrayAdapter<SearchRepos> {
+    List<SearchRepos> reposes;
     Context context;
     private LayoutInflater layoutInflater;
 
-    public SearchReposAdapter(Context context, List<Item> objects) {
+    public SearchReposAdapter(Context context, List<SearchRepos> objects) {
         super(context,0, objects);
         this.context = context;
         this.layoutInflater = layoutInflater.from(context);
         reposes = objects;
     }
 
-    public Item getItem(int position){
+    public SearchRepos getItem(int position){
         return reposes.get(position);
     }
 
@@ -48,7 +45,7 @@ public class SearchReposAdapter extends ArrayAdapter<Item> {
             vh = (ViewHolder) convertView.getTag();
         }
 
-        Item item = getItem(position);
+        SearchRepos item = getItem(position);
 
         vh.textViewName.setText(item.getName());
         vh.textViewEmail.setText(item.getFullName());

@@ -63,20 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         web = (WebView) findViewById(R.id.webv);
         web.getSettings().setJavaScriptEnabled(true);
 
-
-//        web.setVerticalScrollBarEnabled(true);
-//        web.setHorizontalScrollBarEnabled(true);
-//
-//        web.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return (event.getAction() == MotionEvent.ACTION_MOVE);
-//            }
-//        });
-
-
-//                web.loadUrl(API_BASE_URL + "?redirect_uri=" + redirectUri + "&response_type=code&client_id=" + clientId);
-
         if (InternetConnection.ckeckConnection(getApplicationContext())) {
             web.setWebViewClient(new MyWebViewClient());
             web.loadUrl(API_BASE_URL
@@ -102,18 +88,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
-//    public static void setDefaults(String key, boolean value, Context context) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString(key, String.valueOf(value));
-//        editor.commit();
-//    }
-//
-//    public static String getDefaults(String key, Context context) {
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-//        return preferences.getString(key, null);
-//    }
 
     @Override
     public void onBackPressed() {
@@ -146,18 +120,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
-    //    @Override
-//    public void onRefresh() {
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                // Отменяем анимацию обновления
-//                swipeRefreshLayout.setRefreshing(false);
-//                web.reload();
-//            }
-//        }, 3000);
-//    }
 
     ProgressDialog dialog;
     private class MyWebViewClient extends WebViewClient {
@@ -237,8 +199,6 @@ public class LoginActivity extends AppCompatActivity {
                                  */
                                 token = response.body().getAccessToken();
 
-//                                    authComplete = true;
-
                                 Log.e("TOKEN", token);
 
 
@@ -246,9 +206,6 @@ public class LoginActivity extends AppCompatActivity {
                                  *  Go to next token
                                  */
                                 if (token != null) {
-
-
-//                                    MainActivity.logined = true;
 
                                     new GetUserInfo().execute(token);
 
@@ -287,6 +244,7 @@ public class LoginActivity extends AppCompatActivity {
     private class GetUserInfo extends AsyncTask<String, String, String> {
         String userLogin2;
         String imageUrl;
+        MainActivity data = new MainActivity();
 
 
         @Override
@@ -312,10 +270,13 @@ public class LoginActivity extends AppCompatActivity {
                         userLogin2 = response.body().getLogin();
                         imageUrl = response.body().getAvatarUrl();
 
-                        MainActivity.token = "token "+token;
-                        MainActivity.login = userLogin2;
-                        MainActivity.imageUrl = imageUrl;
 
+                        sharedPreferences = getSharedPreferences("ShaPreferences", Context.MODE_PRIVATE);
+                        editor=sharedPreferences.edit();
+                        editor.putString("token", "token "+token);
+                        editor.putString("login", userLogin2);
+                        editor.putString("imageUrl", imageUrl);
+                        editor.commit();
 
                         dialog.dismiss();
 

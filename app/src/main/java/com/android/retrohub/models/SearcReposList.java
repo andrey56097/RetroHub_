@@ -9,7 +9,7 @@ import java.util.List;
  * Created by batsa on 29.03.2017.
  */
 
-public class ItemsList {
+public class SearcReposList {
     @SerializedName("total_count")
     @Expose
     private int totalCount;
@@ -18,7 +18,7 @@ public class ItemsList {
     private boolean incompleteResults;
     @SerializedName("items")
     @Expose
-    private List<Item> items = null;
+    private List<SearchRepos> items = null;
 
     public int getTotalCount() {
         return totalCount;
@@ -36,11 +36,11 @@ public class ItemsList {
         this.incompleteResults = incompleteResults;
     }
 
-    public List<Item> getItems() {
+    public List<SearchRepos> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<SearchRepos> items) {
         this.items = items;
     }
 }

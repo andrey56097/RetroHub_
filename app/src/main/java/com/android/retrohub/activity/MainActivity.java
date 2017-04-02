@@ -50,14 +50,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, DrawerLayout.DrawerListener {
 
 
-    public static boolean logined = false;
     public static SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
-
-    public static String login="your login";
-    public static String imageUrl="xxx";
-    public static String token="token";
 
     List<UserRepos> dataArrayList;
 
@@ -77,14 +71,14 @@ public class MainActivity extends AppCompatActivity
 
 
             if (firstTime) {
-
-
                 editor.putBoolean("first", false);
                 editor.commit();
+
 
                 finish();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
+
 
             } else {
 //                finish();
@@ -109,11 +103,11 @@ public class MainActivity extends AppCompatActivity
 
         listView = (ListView) findViewById(R.id.listView);
 
-        name.setText(login);
+        name.setText(sharedPreferences.getString("login","your login"));
 
 
         Picasso.with(getApplicationContext())
-                .load(imageUrl)
+                .load(sharedPreferences.getString("imageUrl","xxx"))
                 .error(R.mipmap.ic_launcher).into(img);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -165,7 +159,7 @@ public class MainActivity extends AppCompatActivity
 
 
             final ApiService api = RetroClient.getApiServiceGIT();
-            Call<List<UserRepos>> call = api.getRepos(token, "pushed", "all");
+            Call<List<UserRepos>> call = api.getRepos(sharedPreferences.getString("token",""), "pushed", "all");
 
             final ProgressDialog dialog;
             dialog = new ProgressDialog(MainActivity.this);
@@ -184,7 +178,6 @@ public class MainActivity extends AppCompatActivity
                         adapter = new UserReposAdapter(MainActivity.this, dataArrayList);
                         listView.setAdapter(adapter);
 
-//                        Log.e("SIZE", dataArrayList.size() + "");
                     } catch (Exception e) {
                     }
                 }
@@ -265,7 +258,6 @@ public class MainActivity extends AppCompatActivity
             } else {
                 cookieManager.removeAllCookie();
             }
-//            logined = false;
 
             editor.putBoolean("first", false);
 
@@ -297,7 +289,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRefresh() {
         final ApiService api = RetroClient.getApiServiceGIT();
-        Call<List<UserRepos>> call = api.getRepos( token,"pushed","all");
+        Call<List<UserRepos>> call = api.getRepos( sharedPreferences.getString("token",""),"pushed","all");
 
         final ProgressDialog dialog;
         dialog = new ProgressDialog(MainActivity.this);

@@ -3,20 +3,16 @@ package com.android.retrohub.api;
 
 import com.android.retrohub.models.GetToken;
 import com.android.retrohub.models.GitUser;
-import com.android.retrohub.models.ItemsList;
-import com.android.retrohub.models.SearchRepos;
-import com.android.retrohub.models.SearchReposList;
+import com.android.retrohub.models.SearcReposList;
 import com.android.retrohub.models.UserRepos;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -60,9 +56,9 @@ public interface ApiService {
                                    @Query("visibility") String visibility );
 
     @GET("search/repositories")
-    Call<ItemsList> searchRepos(@Query("q") String q,
-                                @Query("sort") String sort,
-                                @Query("order") String order);
+    Call<SearcReposList> searchRepos(@Query("q") String q,
+                                     @Query("sort") String sort,
+                                     @Query("order") String order);
 
 
 

@@ -9,28 +9,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.retrohub.R;
 import com.android.retrohub.adapter.SearchReposAdapter;
-import com.android.retrohub.adapter.UserReposAdapter;
 import com.android.retrohub.api.ApiService;
 import com.android.retrohub.api.RetroClient;
-import com.android.retrohub.models.Item;
-import com.android.retrohub.models.ItemsList;
 import com.android.retrohub.models.SearchRepos;
-import com.android.retrohub.models.SearchReposList;
-import com.android.retrohub.models.UserRepos;
+import com.android.retrohub.models.SearcReposList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +38,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
     private SearchReposAdapter adapter;
     private ListView listView;
 
-    private ArrayList<Item> searchReposes;
+    private ArrayList<SearchRepos> searchReposes;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private String query;
@@ -100,7 +93,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
 
 
 //            Call<List<UserRepos>> call = api.getRepos(MainActivity.token, "pushed", "all");
-            Call<ItemsList> call = api.searchRepos(query,"stars","desc");
+            Call<SearcReposList> call = api.searchRepos(query,"stars","desc");
 
             final ProgressDialog dialog;
             dialog = new ProgressDialog(SearchResultsActivity.this);
@@ -108,15 +101,15 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
             dialog.setMessage(getString(R.string.string_getting_gson_massage));
             dialog.show();
 
-            call.enqueue(new Callback<ItemsList>() {
+            call.enqueue(new Callback<SearcReposList>() {
                 @Override
-                public void onResponse(Call<ItemsList> call, Response<ItemsList> response) {
+                public void onResponse(Call<SearcReposList> call, Response<SearcReposList> response) {
                     dialog.dismiss();
 
                     try {
 //                        dataArrayList = response.body().getItems().get(3).;
 
-                        searchReposes = (ArrayList<Item>) response.body().getItems();
+                        searchReposes = (ArrayList<SearchRepos>) response.body().getItems();
                         adapter = new SearchReposAdapter(SearchResultsActivity.this, searchReposes);
                         listView.setAdapter(adapter);
                         swipeRefreshLayout.setRefreshing(false);
@@ -128,7 +121,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
                 }
 
                 @Override
-                public void onFailure(Call<ItemsList> call, Throwable t) {
+                public void onFailure(Call<SearcReposList> call, Throwable t) {
                     dialog.dismiss();
                 }
             });
@@ -217,7 +210,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
 
         final ApiService api = RetroClient.getApiServiceGIT();
 
-        Call<ItemsList> call = api.searchRepos(query,"stars","desc");
+        Call<SearcReposList> call = api.searchRepos(query,"stars","desc");
 
         final ProgressDialog dialog;
         dialog = new ProgressDialog(SearchResultsActivity.this);
@@ -225,13 +218,13 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
         dialog.setMessage(getString(R.string.string_getting_gson_massage));
         dialog.show();
 
-        call.enqueue(new Callback<ItemsList>() {
+        call.enqueue(new Callback<SearcReposList>() {
             @Override
-            public void onResponse(Call<ItemsList> call, Response<ItemsList> response) {
+            public void onResponse(Call<SearcReposList> call, Response<SearcReposList> response) {
                 dialog.dismiss();
 
                 try {
-                    searchReposes = (ArrayList<Item>) response.body().getItems();
+                    searchReposes = (ArrayList<SearchRepos>) response.body().getItems();
                     adapter = new SearchReposAdapter(SearchResultsActivity.this, searchReposes);
                     listView.setAdapter(adapter);
                     swipeRefreshLayout.setRefreshing(false);
@@ -241,7 +234,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
             }
 
             @Override
-            public void onFailure(Call<ItemsList> call, Throwable t) {
+            public void onFailure(Call<SearcReposList> call, Throwable t) {
                 dialog.dismiss();
             }
         });
