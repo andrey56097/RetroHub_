@@ -56,15 +56,6 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
-        <activity
-            android:name=".activity.SwipeActivity"
-            android:label="@string/app_name"
-            android:noHistory="true" android:excludeFromRecents="true">
-
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

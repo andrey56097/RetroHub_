@@ -74,16 +74,9 @@ public class MainActivity extends AppCompatActivity
                 editor.putBoolean("first", false);
                 editor.commit();
 
-
                 finish();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
-
-
-            } else {
-//                finish();
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intent);
             }
 
 
@@ -116,11 +109,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, SwipeActivity.class);
-                startActivity(intent);
-
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -308,8 +298,6 @@ public class MainActivity extends AppCompatActivity
                     adapter = new UserReposAdapter(MainActivity.this, dataArrayList);
                     listView.setAdapter(adapter);
                     swipeRefreshLayout.setRefreshing(false);
-
-                    Log.e("SIZE", dataArrayList.size()+"");
                 } catch (Exception e){}
             }
 
@@ -317,7 +305,6 @@ public class MainActivity extends AppCompatActivity
             public void onFailure(Call<List<UserRepos>> call, Throwable t) {
 
                 dialog.dismiss();
-
                 Log.e("ERROR WP", " "+t.toString());
             }
         });

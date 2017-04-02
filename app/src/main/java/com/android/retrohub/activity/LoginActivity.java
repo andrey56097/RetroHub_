@@ -134,13 +134,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-
-//            web.loadUrl(API_BASE_URL + "?redirect_uri=" + redirectUri + "&response_type=code&client_id=" + clientId);
-//            if (InternetConnection.ckeckConnection(getApplicationContext())) {
-//                web.loadUrl(API_BASE_URL + "?redirect_uri=" + redirectUri + "&response_type=code&client_id=" + clientId);
-//            } else {
-//                Snackbar.make(view, "Please check your internet connection and try again", Snackbar.LENGTH_LONG).show();
-//            }
         }
 
         String code;
@@ -148,7 +141,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-//                web.loadUrl("http://ru.stackoverflow.com/questions/616287/%D0%9D%D0%B5-%D1%83%D0%B4%D0%B0%D0%BB%D0%BE%D1%81%D1%8C-%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C-%D0%B2%D0%B5%D0%B1-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%83-webview");
             web.stopLoading();
 //            Snackbar.make(view, "Please check your internet connection and try again", Snackbar.LENGTH_LONG).show();
         }
@@ -180,8 +172,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (code != null) {
 
-                    Toast.makeText(getApplicationContext(), "Authorization Code is: " + code, Toast.LENGTH_SHORT).show();
-
                     final ApiService api = RetroClient.getApiService();
 
                     /**
@@ -199,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                                  */
                                 token = response.body().getAccessToken();
 
-                                Log.e("TOKEN", token);
+//                                Log.e("TOKEN", token);
 
 
                                 /**
@@ -244,8 +234,6 @@ public class LoginActivity extends AppCompatActivity {
     private class GetUserInfo extends AsyncTask<String, String, String> {
         String userLogin2;
         String imageUrl;
-        MainActivity data = new MainActivity();
-
 
         @Override
         protected void onPreExecute() {
