@@ -46,9 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     WebView web;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    public String token;
+    private String token;
 
-    public static SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
     @Override

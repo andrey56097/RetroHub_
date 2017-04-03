@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -51,14 +53,13 @@ public class MainActivity extends AppCompatActivity
 
 
     public static SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor;
 
-    List<UserRepos> dataArrayList;
+    private List<UserRepos> dataArrayList;
 
     private UserReposAdapter adapter;
     private ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
 
 
     @Override
@@ -66,18 +67,18 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         sharedPreferences = getSharedPreferences("ShaPreferences", Context.MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-        boolean  firstTime=sharedPreferences.getBoolean("first", true);
+        editor = sharedPreferences.edit();
+        boolean firstTime = sharedPreferences.getBoolean("first", true);
 
 
-            if (firstTime) {
-                editor.putBoolean("first", false);
-                editor.commit();
+        if (firstTime) {
+            editor.putBoolean("first", false);
+            editor.commit();
 
-                finish();
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
+            finish();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
 
 
         setContentView(R.layout.activity_main);
@@ -89,17 +90,17 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View header=navigationView.getHeaderView(0);
-        TextView name = (TextView)header.findViewById(R.id.userLogin);
-        ImageView img = (ImageView)header.findViewById(R.id.imageView);
+        View header = navigationView.getHeaderView(0);
+        TextView name = (TextView) header.findViewById(R.id.userLogin);
+        ImageView img = (ImageView) header.findViewById(R.id.imageView);
 
 
         listView = (ListView) findViewById(R.id.listView);
 
-        name.setText(sharedPreferences.getString("login","your login"));
+        name.setText(sharedPreferences.getString("login", "your login"));
 
         Picasso.with(getApplicationContext())
-                .load(sharedPreferences.getString("imageUrl","xxx"))
+                .load(sharedPreferences.getString("imageUrl", "xxx"))
                 .error(R.mipmap.ic_launcher).into(img);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -116,20 +117,16 @@ public class MainActivity extends AppCompatActivity
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, R.color.colorAccent, R.color.colorPrimaryDark);
-
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener()
-        {
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState)
-            {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-            {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
                 swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
@@ -147,38 +144,38 @@ public class MainActivity extends AppCompatActivity
          */
 
 
-            final ApiService api = RetroClient.getApiServiceGIT();
-            Call<List<UserRepos>> call = api.getRepos(sharedPreferences.getString("token",""), "pushed", "all");
+        final ApiService api = RetroClient.getApiServiceGIT();
+        Call<List<UserRepos>> call = api.getRepos(sharedPreferences.getString("token", ""), "pushed", "all");
 
-            final ProgressDialog dialog;
-            dialog = new ProgressDialog(MainActivity.this);
-            dialog.setTitle(getString(R.string.string_getting_gson_title));
-            dialog.setMessage(getString(R.string.string_getting_gson_massage));
-            dialog.show();
+        final ProgressDialog dialog;
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setTitle(getString(R.string.string_getting_gson_title));
+        dialog.setMessage(getString(R.string.string_getting_gson_massage));
+        dialog.show();
 
-            call.enqueue(new Callback<List<UserRepos>>() {
-                @Override
-                public void onResponse(Call<List<UserRepos>> call, Response<List<UserRepos>> response) {
-                    dialog.dismiss();
+        call.enqueue(new Callback<List<UserRepos>>() {
+            @Override
+            public void onResponse(Call<List<UserRepos>> call, Response<List<UserRepos>> response) {
+                dialog.dismiss();
 
-                    try {
-                        dataArrayList = response.body();
+                try {
+                    dataArrayList = response.body();
 
-                        adapter = new UserReposAdapter(MainActivity.this, dataArrayList);
-                        listView.setAdapter(adapter);
+                    adapter = new UserReposAdapter(MainActivity.this, dataArrayList);
+                    listView.setAdapter(adapter);
 
-                    } catch (Exception e) {
-                    }
+                } catch (Exception e) {
                 }
+            }
 
-                @Override
-                public void onFailure(Call<List<UserRepos>> call, Throwable t) {
+            @Override
+            public void onFailure(Call<List<UserRepos>> call, Throwable t) {
 
-                    dialog.dismiss();
+                dialog.dismiss();
 
-                    Log.e("ERROR WP", " " + t.toString());
-                }
-            });
+                Log.e("ERROR WP", " " + t.toString());
+            }
+        });
 
     }
 
@@ -186,12 +183,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -216,8 +213,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -239,33 +234,45 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        // Handle the camera action
         if (id == R.id.nav_camera) {
 
-            CookieManager cookieManager = CookieManager.getInstance();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                cookieManager.removeAllCookies(null);
-            } else {
-                cookieManager.removeAllCookie();
-            }
-
-            editor.putBoolean("first", false);
-
-            finish();
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-
-            // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_logout) {
 
-        } else if (id == R.id.nav_send) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Exit Application?");
+            alertDialogBuilder.setMessage("Click yes to exit!").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    moveTaskToBack(true);
 
+                    CookieManager cookieManager = CookieManager.getInstance();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        cookieManager.removeAllCookies(null);
+                    } else {
+                        cookieManager.removeAllCookie();
+                    }
+
+                    editor.putBoolean("first", false);
+
+                    finish();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+                }
+            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -274,11 +281,10 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onRefresh() {
         final ApiService api = RetroClient.getApiServiceGIT();
-        Call<List<UserRepos>> call = api.getRepos( sharedPreferences.getString("token",""),"pushed","all");
+        Call<List<UserRepos>> call = api.getRepos(sharedPreferences.getString("token", ""), "pushed", "all");
 
         final ProgressDialog dialog;
         dialog = new ProgressDialog(MainActivity.this);
@@ -297,14 +303,15 @@ public class MainActivity extends AppCompatActivity
                     adapter = new UserReposAdapter(MainActivity.this, dataArrayList);
                     listView.setAdapter(adapter);
                     swipeRefreshLayout.setRefreshing(false);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onFailure(Call<List<UserRepos>> call, Throwable t) {
 
                 dialog.dismiss();
-                Log.e("ERROR WP", " "+t.toString());
+                Log.e("ERROR WP", " " + t.toString());
             }
         });
     }
