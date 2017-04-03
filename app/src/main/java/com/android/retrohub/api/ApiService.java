@@ -42,14 +42,6 @@ public interface ApiService {
             @Header("Authorization") String token
     );
 
-
-//    @GET("users/{user_login}/repos")
-//    Call<List<UserRepos>> getRepos(@Path("user_login") String userLogin);
-
-//    @Headers({
-//            "sort: pushed",
-//            "visibility: all"
-//    })
     @GET("user/repos")
     Call<List<UserRepos>> getRepos(@Header("Authorization") String token,
                                    @Query("sort") String sort,
@@ -59,29 +51,4 @@ public interface ApiService {
     Call<SearcReposList> searchRepos(@Query("q") String q,
                                      @Query("sort") String sort,
                                      @Query("order") String order);
-
-
-
-//    @GET("users//repos")
-//    Call<UserReposList[]> getRoutes(@Path("user_login") String userLogin, Callback<UserReposList> routesCallback);
-//
-//    @DELETE("/applications/:{client_id}/grants/:{access_token}")
-//    Call<Void> deleteBook(@Path("client_id") String bookId, @Path("access_token") String accessToken);
-
-
-//    @Headers({
-//            "Authorization: token f9d22f2abb9d6bcda2375a7b889bcf16aa36947e",
-//    })
-//    @GET("user")
-//    Call<GitUser> getUser();
-
-
-
-
-
-
-
-    /*
-    @GET("users/andrey56097/repos")
-    Call<UserRepos> getRepos();*/
 }

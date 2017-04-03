@@ -14,7 +14,6 @@ public class RetroClient {
     /**
      *  URLS
      */
-//    private static final String ROOT_URL = "https://api.myjson.com";
     private static final String ROOT_URL = "https://github.com/";
     private static final String ROOT_URL_GIT = "https://api.github.com/";
 

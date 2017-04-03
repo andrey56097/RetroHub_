@@ -126,44 +126,6 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
                 }
             });
 
-
-
-//            final ProgressDialog dialog;
-//            dialog = new ProgressDialog(SearchResultsActivity.this);
-//            dialog.setTitle(getString(R.string.string_getting_gson_title));
-//            dialog.setMessage(getString(R.string.string_getting_gson_massage));
-//            dialog.show();
-
-//            call.enqueue(new Callback<List<UserRepos>>() {
-//                @Override
-//                public void onResponse(Call<List<UserRepos>> call, Response<List<UserRepos>> response) {
-//                    dialog.dismiss();
-//
-//                    try {
-//                        dataArrayList = response.body();
-//
-//                        adapter = new UserReposAdapter(SearchResultsActivity.this, dataArrayList);
-//                        listView.setAdapter(adapter);
-//
-////                        Log.e("SIZE", dataArrayList.size() + "");
-//                    } catch (Exception e) {
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<List<UserRepos>> call, Throwable t) {
-//
-//                    dialog.dismiss();
-//
-//                    Log.e("ERROR WP", " " + t.toString());
-//                }
-//            });
-//            textView = (TextView) findViewById(R.id.text_search);
-//            textView.setText(query);
-
-
-
-
 //            Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
         }
     }
