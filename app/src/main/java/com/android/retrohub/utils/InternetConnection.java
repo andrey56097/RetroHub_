@@ -1,4 +1,4 @@
-package com.android.retrohub.services;
+package com.android.retrohub.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

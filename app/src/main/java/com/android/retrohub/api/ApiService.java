@@ -1,10 +1,10 @@
 package com.android.retrohub.api;
 
 
-import com.android.retrohub.models.GetToken;
-import com.android.retrohub.models.GitUser;
-import com.android.retrohub.models.SearcReposList;
-import com.android.retrohub.models.UserRepos;
+import com.android.retrohub.model.GetToken;
+import com.android.retrohub.model.GitUser;
+import com.android.retrohub.model.SearchReposList;
+import com.android.retrohub.model.UserRepos;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public interface ApiService {
                                    @Query("visibility") String visibility );
 
     @GET("search/repositories")
-    Call<SearcReposList> searchRepos(@Query("q") String q,
-                                     @Query("sort") String sort,
-                                     @Query("order") String order);
+    Call<SearchReposList> searchRepos(@Query("q") String q,
+                                      @Query("sort") String sort,
+                                      @Query("order") String order);
 }

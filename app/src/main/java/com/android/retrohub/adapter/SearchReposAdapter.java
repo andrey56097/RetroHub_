@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.retrohub.R;
-import com.android.retrohub.models.SearchRepos;
+import com.android.retrohub.model.SearchRepos;
 
 import java.util.List;
 

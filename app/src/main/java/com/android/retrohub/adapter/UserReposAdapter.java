@@ -10,8 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.retrohub.R;
-import com.android.retrohub.models.UserRepos;
-import com.squareup.picasso.Picasso;
+import com.android.retrohub.model.UserRepos;
 
 import java.util.List;
 

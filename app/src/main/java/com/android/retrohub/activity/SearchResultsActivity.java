@@ -20,8 +20,8 @@ import com.android.retrohub.R;
 import com.android.retrohub.adapter.SearchReposAdapter;
 import com.android.retrohub.api.ApiService;
 import com.android.retrohub.api.RetroClient;
-import com.android.retrohub.models.SearchRepos;
-import com.android.retrohub.models.SearcReposList;
+import com.android.retrohub.model.SearchReposList;
+import com.android.retrohub.model.SearchRepos;
 
 import java.util.ArrayList;
 
@@ -93,7 +93,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
 
 
 //            Call<List<UserRepos>> call = api.getRepos(MainActivity.token, "pushed", "all");
-            Call<SearcReposList> call = api.searchRepos(query,"stars","desc");
+            Call<SearchReposList> call = api.searchRepos(query,"stars","desc");
 
             final ProgressDialog dialog;
             dialog = new ProgressDialog(SearchResultsActivity.this);
@@ -101,9 +101,9 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
             dialog.setMessage(getString(R.string.string_getting_gson_massage));
             dialog.show();
 
-            call.enqueue(new Callback<SearcReposList>() {
+            call.enqueue(new Callback<SearchReposList>() {
                 @Override
-                public void onResponse(Call<SearcReposList> call, Response<SearcReposList> response) {
+                public void onResponse(Call<SearchReposList> call, Response<SearchReposList> response) {
                     dialog.dismiss();
 
                     try {
@@ -121,7 +121,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
                 }
 
                 @Override
-                public void onFailure(Call<SearcReposList> call, Throwable t) {
+                public void onFailure(Call<SearchReposList> call, Throwable t) {
                     dialog.dismiss();
                 }
             });
@@ -160,7 +160,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-               onBackPressed();
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -172,7 +172,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
 
         final ApiService api = RetroClient.getApiServiceGIT();
 
-        Call<SearcReposList> call = api.searchRepos(query,"stars","desc");
+        Call<SearchReposList> call = api.searchRepos(query,"stars","desc");
 
         final ProgressDialog dialog;
         dialog = new ProgressDialog(SearchResultsActivity.this);
@@ -180,9 +180,9 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
         dialog.setMessage(getString(R.string.string_getting_gson_massage));
         dialog.show();
 
-        call.enqueue(new Callback<SearcReposList>() {
+        call.enqueue(new Callback<SearchReposList>() {
             @Override
-            public void onResponse(Call<SearcReposList> call, Response<SearcReposList> response) {
+            public void onResponse(Call<SearchReposList> call, Response<SearchReposList> response) {
                 dialog.dismiss();
 
                 try {
@@ -196,7 +196,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
             }
 
             @Override
-            public void onFailure(Call<SearcReposList> call, Throwable t) {
+            public void onFailure(Call<SearchReposList> call, Throwable t) {
                 dialog.dismiss();
             }
         });

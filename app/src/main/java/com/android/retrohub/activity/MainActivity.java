@@ -36,8 +36,7 @@ import com.android.retrohub.R;
 import com.android.retrohub.adapter.UserReposAdapter;
 import com.android.retrohub.api.ApiService;
 import com.android.retrohub.api.RetroClient;
-import com.android.retrohub.models.UserRepos;
-import com.android.retrohub.services.InternetConnection;
+import com.android.retrohub.model.UserRepos;
 import com.squareup.picasso.Picasso;
 
 

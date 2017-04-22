@@ -1,4 +1,4 @@
-package com.android.retrohub.models;
+package com.android.retrohub.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by batsa on 29.03.2017.
  */
 
-public class SearcReposList {
+public class SearchReposList {
     @SerializedName("total_count")
     @Expose
     private int totalCount;
