@@ -34,8 +34,8 @@ import android.widget.TextView;
 
 import com.android.retrohub.R;
 import com.android.retrohub.adapter.UserReposAdapter;
-import com.android.retrohub.api.ApiService;
-import com.android.retrohub.api.RetroClient;
+import com.android.retrohub.model.api.ApiService;
+import com.android.retrohub.model.api.RetroClient;
 import com.android.retrohub.model.UserRepos;
 import com.squareup.picasso.Picasso;
 
@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity
 
         Picasso.with(getApplicationContext())
                 .load(sharedPreferences.getString("imageUrl", "xxx"))
-                .error(R.mipmap.ic_launcher).into(img);
+                .error(R.mipmap.ic_launcher)
+                .into(img);
         navigationView.setNavigationItemSelectedListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity
          */
 
 
-        final ApiService api = RetroClient.getApiServiceGIT();
+         ApiService api = RetroClient.getApiServiceGIT();
         Call<List<UserRepos>> call = api.getRepos(sharedPreferences.getString("token", ""), "pushed", "all");
 
         final ProgressDialog dialog;
@@ -292,6 +293,7 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
 
         call.enqueue(new Callback<List<UserRepos>>() {
+
             @Override
             public void onResponse(Call<List<UserRepos>> call, Response<List<UserRepos>> response) {
                 dialog.dismiss();

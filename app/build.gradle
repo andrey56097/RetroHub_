@@ -30,7 +30,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Picasso
-    compile 'com.squareup.picasso:picasso:2.4.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     // GSON with Retrofit
     compile 'com.google.code.gson:gson:2.7'
@@ -49,4 +49,5 @@ dependencies {
 
     // Butterknife
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'org.jetbrains:annotations-java5:15.0'
 }

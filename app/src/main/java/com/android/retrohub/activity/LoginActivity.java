@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -20,8 +21,8 @@ import android.webkit.WebViewClient;
 
 import com.android.retrohub.model.GetToken;
 import com.android.retrohub.R;
-import com.android.retrohub.api.ApiService;
-import com.android.retrohub.api.RetroClient;
+import com.android.retrohub.model.api.ApiService;
+import com.android.retrohub.model.api.RetroClient;
 import com.android.retrohub.model.GitUser;
 import com.android.retrohub.utils.InternetConnection;
 import retrofit2.Call;
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     private final String clientId = "500acef59d850d1cf45c";
     private final String clientSecret = "7b5dcf5e074b4c6c75016c64ffae9d7e491b0380";
     private final String redirectUri = "http://localhost";
-    private final String grandType = "grant_type";
     private final String API_BASE_URL = "https://github.com/login/oauth/authorize";
 
     WebView web;
@@ -72,7 +72,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 if (InternetConnection.ckeckConnection(getApplicationContext())) {
-                    web.loadUrl(API_BASE_URL + "?redirect_uri=" + redirectUri + "&response_type=code&client_id=" + clientId+"&scope=repo_hook%20repo%20public_repo%20admin:public_key ");
+                    web.setWebViewClient(new MyWebViewClient());
+                    web.loadUrl(API_BASE_URL
+                            + "?redirect_uri="
+                            + redirectUri
+                            + "&response_type=code&client_id="
+                            + clientId
+                            +"&scope=repo_hook%20repo%20public_repo%20admin:public_key");
                 } else {
                     Snackbar.make(web, "Please check your internet connection and swipe down", Snackbar.LENGTH_LONG).show();
                 }
@@ -134,7 +140,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-            web.stopLoading();
+
+            web.loadUrl(API_BASE_URL);
+//            web.stopLoading();
 //            Snackbar.make(view, "Please check your internet connection and try again", Snackbar.LENGTH_LONG).show();
         }
 
@@ -165,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (code != null) {
 
-                    final ApiService api = RetroClient.getApiService();
+                     ApiService api = RetroClient.getApiService();
 
                     /**
                      * FIRST REQUEST to get token
@@ -257,6 +265,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("token", "token "+token);
                         editor.putString("login", userLogin2);
                         editor.putString("imageUrl", imageUrl);
+                        Log.e("IMAGE", imageUrl);
                         editor.commit();
 
                         dialog.dismiss();

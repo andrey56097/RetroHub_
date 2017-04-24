@@ -18,10 +18,10 @@ import android.widget.TextView;
 
 import com.android.retrohub.R;
 import com.android.retrohub.adapter.SearchReposAdapter;
-import com.android.retrohub.api.ApiService;
-import com.android.retrohub.api.RetroClient;
 import com.android.retrohub.model.SearchReposList;
 import com.android.retrohub.model.SearchRepos;
+import com.android.retrohub.model.api.ApiService;
+import com.android.retrohub.model.api.RetroClient;
 
 import java.util.ArrayList;
 

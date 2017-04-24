@@ -1,4 +1,4 @@
-package com.android.retrohub.api;
+package com.android.retrohub.model.api;
 
 
 import com.android.retrohub.model.GetToken;
@@ -7,6 +7,8 @@ import com.android.retrohub.model.SearchReposList;
 import com.android.retrohub.model.UserRepos;
 
 import java.util.List;
+import rx.Observable;
+
 
 import retrofit2.Call;
 import retrofit2.http.GET;
