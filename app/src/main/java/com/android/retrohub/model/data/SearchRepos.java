@@ -1,13 +1,13 @@
-package com.android.retrohub.model;
+package com.android.retrohub.model.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by batsa on 05.03.2017.
+ * Created by batsa on 29.03.2017.
  */
 
-public class UserRepos {
+public class SearchRepos {
 
         @SerializedName("id")
         @Expose
@@ -183,6 +183,9 @@ public class UserRepos {
         @SerializedName("has_issues")
         @Expose
         private boolean hasIssues;
+        @SerializedName("has_projects")
+        @Expose
+        private boolean hasProjects;
         @SerializedName("has_downloads")
         @Expose
         private boolean hasDownloads;
@@ -213,6 +216,9 @@ public class UserRepos {
         @SerializedName("default_branch")
         @Expose
         private String defaultBranch;
+        @SerializedName("score")
+        @Expose
+        private float score;
 
         public int getId() {
                 return id;
@@ -678,6 +684,14 @@ public class UserRepos {
                 this.hasIssues = hasIssues;
         }
 
+        public boolean isHasProjects() {
+                return hasProjects;
+        }
+
+        public void setHasProjects(boolean hasProjects) {
+                this.hasProjects = hasProjects;
+        }
+
         public boolean isHasDownloads() {
                 return hasDownloads;
         }
@@ -758,7 +772,17 @@ public class UserRepos {
                 this.defaultBranch = defaultBranch;
         }
 
+        public float getScore() {
+                return score;
+        }
+
+        public void setScore(float score) {
+                this.score = score;
+        }
+
+
         public class Owner {
+
                 @SerializedName("login")
                 @Expose
                 private String login;

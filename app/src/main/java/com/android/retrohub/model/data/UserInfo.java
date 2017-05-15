@@ -1,4 +1,4 @@
-package com.android.retrohub.model;
+package com.android.retrohub.model.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by batsa on 05.03.2017.
  */
 
-public class GitUser {
+public class UserInfo {
 
     @SerializedName("login")
     @Expose
