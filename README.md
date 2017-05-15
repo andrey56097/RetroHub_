@@ -1,1 +1,1 @@
-This is a client for githab, which used oauth 2.0 authentication.
+This is a client for githab, which uses oauth 2.0 authentication. 
